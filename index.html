@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bihari AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; padding:20px; background:#f5f5f5; }
+    textarea { width:100%; height:90px; font-size:16px; }
+    button { padding:10px 14px; margin:6px 4px; font-size:16px; }
+    #out { margin-top:12px; font-weight:bold; }
+  </style>
+</head>
+<body>
+
+<h2>🟢 Bihari AI</h2>
+
+<textarea id="msg" placeholder="Likho ya mic dabao..."></textarea><br>
+
+<button onclick="startVoice()">🎤 Bol ke poocho</button>
+<button onclick="send()">📤 Send</button>
+
+<p id="out"></p>
+
+<script>
+function send(){
+  const t = document.getElementById("msg").value;
+  document.getElementById("out").innerText = "Bihari AI: " + t;
+  speak(t);
+}
+
+function startVoice(){
+  const r = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  r.lang = "hi-IN";
+  r.onresult = e => document.getElementById("msg").value = e.results[0][0].transcript;
+  r.start();
+}
+
+function speak(t){
+  const u = new SpeechSynthesisUtterance(t);
+  u.lang = "hi-IN";
+  speechSynthesis.speak(u);
+}
+</script>
+
+</body>
+</html>
